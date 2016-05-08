@@ -16,28 +16,26 @@ Release History
   Previously, directories were only emitted when walked by the underling
   iterator, which resulted in paths being missed in some cases.
 
-* *SEMANTIC CHANGE*: to implement some of the fixes noted below, the
-  ``dir_paths`` iterator has been updated to emit paths in the following
-  order for each directory produced by the underling iterator:
-
-    * given directory if it appears to be a new root directory (i.e. it is
-      not a subdirectory of the current root directory)
-    * subdirectories of the given directory
-
-  Previously, directories were only emitted when walked by the underling
-  iterator, which resulted in paths being missed in some cases.
-
 * Thanks go to Aviv Palivoda for being the driving force behind this release,
   especially in addressing a variety of issues in the way directory filtering
   and symlinks to directories are handled.
 
-* Issue #3: ``all_paths`` and ``dir_paths`` now correctly report symlinks to
-  directories as directory paths, even when ``followlinks`` is disabled in
-  the underlying iterator (fix contributed by Aviv Palivoda)
+* Issue #12: a new API, ``all_dir_paths`` has been added which, in addition to
+  the directories visited by the underlying walk, also emits:
 
-* Issue #4: ``all_paths`` and ``dir_paths`` now correctly report subdirectories
-  at the maximum depth when the ``limit_depth`` filter is used to trim nested
-  subdirectories (fix contributed by Aviv Palivoda)
+    * symlinks to directories when ``followlinks`` is disabled in the
+      underlying iterator
+    * subdirectories of leaf directories when the directory tree depth of
+      the underlying iterator has been limited (for example, with the
+      ``limit_depth`` filter)
+
+* Issue #3: ``all_paths`` now correctly reports symlinks to directories as
+  directory paths, even when ``followlinks`` is disabled in the underlying
+  iterator (fix contributed by Aviv Palivoda)
+
+* Issue #4: ``all_paths`` now correctly reports subdirectories at the maximum
+  depth when the ``limit_depth`` filter is used to trim nested subdirectories
+  (fix contributed by Aviv Palivoda)
 
 * Issue #6: ``min_depth``, ``all_paths``, ``dir_paths``, and ``file_paths``
   all now work correctly with ``os.fwalk`` and other underlying iterators
@@ -45,8 +43,8 @@ Release History
   (fix contributed by Aviv Palivoda)
 
 * Issue #7: all filters now explicitly indicate in their documentation whether
-  or not they support being used with bottom-up/depth-first traversal of the
-  underlying directory hierarchy
+  or not they support being used with bottom-up traversal of the underlying
+  directory hierarchy
 
 * A temporary generated filesystem is now used to test symlink loop handling
   and other behaviours that require a real filesystem (patch contributed by

@@ -41,8 +41,8 @@ def include_dirs(walk_iter, *include_filters):
     Inclusion filters are passed directly as arguments.
 
     This filter works by modifying the subdirectory lists produced by the
-    underlying iterator, and hence requires a top-down/breadth-first
-    traversal of the directory hierarchy.
+    underlying iterator, and hence requires a top-down traversal of the
+    directory hierarchy.
     """
     filter_subdirs = _make_include_filter(include_filters)
     for dir_entry in walk_iter:
@@ -56,8 +56,8 @@ def include_files(walk_iter, *include_filters):
     Inclusion filters are passed directly as arguments
 
     This filter does not modify the subdirectory lists produced by the
-    underlying iterator, and hence supports both top-down/breadth-first
-    and bottom-up/depth-first traversal of the directory hierarchy.
+    underlying iterator, and hence supports both top-down and bottom-up
+    traversal of the directory hierarchy.
     """
     filter_files = _make_include_filter(include_filters)
     for dir_entry in walk_iter:
@@ -90,8 +90,8 @@ def exclude_dirs(walk_iter, *exclude_filters):
     Exclusion filters are passed directly as arguments
 
     This filter works by modifying the subdirectory lists produced by the
-    underlying iterator, and hence requires a top-down/breadth-first
-    traversal of the directory hierarchy.
+    underlying iterator, and hence requires a top-down traversal of the
+    directory hierarchy.
     """
     filter_subdirs = _make_exclude_filter(exclude_filters)
     for dir_entry in walk_iter:
@@ -105,8 +105,8 @@ def exclude_files(walk_iter, *exclude_filters):
     Exclusion filters are passed directly as arguments
 
     This filter does not modify the subdirectory lists produced by the
-    underlying iterator, and hence supports both top-down/breadth-first
-    and bottom-up/depth-first traversal of the directory hierarchy.
+    underlying iterator, and hence supports both top-down and bottom-up
+    traversal of the directory hierarchy.
     """
     filter_files = _make_exclude_filter(exclude_filters)
     for dir_entry in walk_iter:
@@ -128,8 +128,8 @@ def limit_depth(walk_iter, depth):
     reference point.
 
     This filter works by modifying the subdirectory lists produced by the
-    underlying iterator, and hence requires a top-down/breadth-first
-    traversal of the directory hierarchy.
+    underlying iterator, and hence requires a top-down traversal of the
+    directory hierarchy.
     """
     if depth < 0:
         msg = "Depth limit less than 0 ({!r} provided)"
@@ -186,8 +186,8 @@ def min_depth(walk_iter, depth):
       as ``itertools.chain(os.walk("test/test2"), os.walk("test/test4")).``
 
     This filter works by modifying the subdirectory lists produced by the
-    underlying iterator, and hence requires a top-down/breadth-first
-    traversal of the directory hierarchy.
+    underlying iterator, and hence requires a top-down traversal of the
+    directory hierarchy.
     """
     if depth < 1:
         msg = "Minimium depth less than 1 ({!r} provided)"
@@ -217,7 +217,7 @@ def handle_symlink_loops(walk_iter, onloop=None):
 
     This filter skips processing subdirectories by modifying the subdirectory
     lists produced by the underlying iterator, and hence requires a
-    top-down/breadth-first traversal of the directory hierarchy.
+    top-down traversal of the directory hierarchy.
     """
     if onloop is None:
         def onloop(dirpath):
@@ -316,13 +316,34 @@ def filtered_walk(top, included_files=None, included_dirs=None,
 
 
 # Iterators that flatten the output into a series of paths
-
 def dir_paths(walk_iter):
-    """Iterate over just the directory names visited by the underlying walk
+    """Iterate over the directories visited by the underlying walk
+
+    Directories are emitted in the order visited, so the underlying walk may
+    be either top-down or bottom-up.
+    """
+    for dir_entry in walk_iter:
+        yield dir_entry[0]
+
+def all_dir_paths(walk_iter):
+    """Iterate over all directories reachable through the underlying walk
+
+    This covers:
+
+      * all visited directories (similar to dir_paths)
+      * all reported subdirectories of visited directories (even if not
+        otherwise visited)
+
+    Example cases where the output may differ from dir_paths:
+
+      * all_dir_paths always includes symlinks to directories even when the
+        underlying iterator doesn't follow symlinks
+      * all_dir_paths will include subdirectories of directories at the maximum
+        depth in a depth limited walk
 
     This iterator expects new root directories to be emitted by the underlying
-    walk before any of their contents, and hence requires a
-    top-down/breadth-first traversal of the directory hierarchy.
+    walk before any of their contents, and hence requires a top-down traversal
+    of the directory hierarchy.
     """
     dir_entry = next(walk_iter, None)
     if dir_entry is None:
@@ -339,17 +360,28 @@ def dir_paths(walk_iter):
         dir_entry = next(walk_iter, None)
 
 def file_paths(walk_iter):
-    """Iterate over the files in directories visited by the underlying walk"""
+    """Iterate over the files in directories visited by the underlying walk
+
+    Directory contents are emitted in the order visited, so the underlying walk
+    may be either top-down or bottom-up.
+    """
     for dir_entry in walk_iter:
         for fname in dir_entry[2]:
             yield os.path.join(dir_entry[0], fname)
 
 def all_paths(walk_iter):
-    """Iterate over both files and directories visited by the underlying walk
+    """Iterate over all paths reachable through the underlying walk
+
+    This covers:
+
+      * all visited directories
+      * all files in visited directories
+      * all reported subdirectories of visited directories (even if not
+        otherwise visited)
 
     This iterator expects new root directories to be emitted by the underlying
-    walk before any of their contents, and hence requires a
-    top-down/breadth-first traversal of the directory hierarchy.
+    walk before any of their contents, and hence requires a top-down traversal
+    of the directory hierarchy.
     """
     dir_entry = next(walk_iter, None)
     if dir_entry is None:
