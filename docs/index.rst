@@ -23,7 +23,7 @@ The module is designed so that all purely filtering operations *preserve*
 the output of the underlying iterable. This means that named tuples, tuples
 containing more than 3 values (such as those produced by :func:`os.fwalk`),
 and objects that aren't tuples at all but are still defined such that
-``x[0], x[1], x[2] => dirpath, subdirs, files`` can be filtered without being
+``x[0], x[1], x[2] => dirpath, subdirs, files``, can be filtered without being
 converted to ordinary 3-tuples.
 
 .. versionchanged:: 0.3
@@ -33,17 +33,26 @@ converted to ordinary 3-tuples.
 Path Iteration
 --------------
 
-Three iterators are provided for iteration over filesystem paths:
-
-.. autofunction:: all_paths
-
-.. autofunction:: dir_paths
+Four iterators are provided for iteration over filesystem paths:
 
 .. autofunction:: file_paths
 
-Except when the underlying iterable switches to a new root directory, these
-functions yield subdirectory paths when visiting the parent directory, rather
-than when visiting the subdirectory.
+.. autofunction:: dir_paths
+
+.. autofunction:: all_dir_paths
+
+   .. versionadded:: 0.4
+
+.. autofunction:: all_paths
+
+   .. versionchanged:: 0.4
+      This function now combines the output of :func:`file_paths` with that
+      of :func:`all_dir_paths` (previously it was the combination of
+      :func:`file_paths` with :func:`dir_paths`)
+
+Except when the underlying iterable switches to a new root directory, the last
+two functions yield subdirectory paths when visiting the parent directory,
+rather than when visiting the subdirectory.
 
 For example, given the following directory tree::
 
@@ -75,6 +84,17 @@ For example, given the following directory tree::
     test/test4/file1.txt
     test/test4/test5
 
+``all_dir_paths`` will produce::
+
+    >>> from walkdir import filtered_walk, all_dir_paths
+    >>> paths = all_dir_paths(filtered_walk('test'))
+    >>> print('\n'.join(paths))
+    test
+    test/test2
+    test/test4
+    test/test2/test3
+    test/test4/test5
+
 ``dir_paths`` will produce::
 
     >>> from walkdir import filtered_walk, dir_paths
@@ -82,9 +102,10 @@ For example, given the following directory tree::
     >>> print('\n'.join(paths))
     test
     test/test2
-    test/test4
     test/test2/test3
+    test/test4
     test/test4/test5
+
 
 And ``file_paths`` will produce::
 

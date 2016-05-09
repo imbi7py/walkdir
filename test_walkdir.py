@@ -9,8 +9,8 @@ from copy import deepcopy
 
 from walkdir import (include_dirs, exclude_dirs, include_files, exclude_files,
                      limit_depth, min_depth, handle_symlink_loops,
-                     filtered_walk, all_paths, dir_paths, file_paths,
-                     iter_paths, iter_dir_paths, iter_file_paths)
+                     filtered_walk, all_paths, dir_paths, all_dir_paths,
+                     file_paths, iter_paths, iter_dir_paths, iter_file_paths)
 
 expected_files = "file1.txt file2.txt other.txt".split()
 
@@ -159,8 +159,11 @@ expected_paths = [
 'root/other/other/other.txt'
 ]
 
-expected_dir_paths = [d for d in expected_paths if not d.endswith('.txt')]
+# Between them, file_paths and all_dir_paths capture the all_paths output
 expected_file_paths = [f for f in expected_paths if f.endswith('.txt')]
+expected_all_dir_paths = [d for d in expected_paths if not d.endswith('.txt')]
+# dir_path's directory visiting based output order is depth-first
+expected_dir_paths = [visited[0] for visited in expected_tree]
 
 depth_0_paths = [
 'root',
@@ -225,7 +228,8 @@ min_depth_1_paths = [
 
 min_depth_1_dir_paths = [d for d in min_depth_1_paths if not d.endswith('.txt')]
 
-depth_0_dir_paths = [d for d in depth_0_paths if not d.endswith('.txt')]
+depth_0_all_dir_paths = [d for d in depth_0_paths if not d.endswith('.txt')]
+depth_0_dir_paths = [d for d in depth_0_paths if '/' not in d]
 depth_0_file_paths = [f for f in depth_0_paths if f.endswith('.txt')]
 
 filtered_paths = [
@@ -532,6 +536,19 @@ class PathIterationTestCase(_BaseWalkTestCase):
                                    included_dirs=['sub*'],
                                    excluded_dirs=['*2'])
         self.assertPathsEqual(filtered_dir_paths, dir_paths(walk_iter))
+
+    def test_all_dir_paths(self):
+        self.assertPathsEqual(expected_all_dir_paths,
+                              all_dir_paths(self.filtered_walk()))
+        self.assertPathsEqual(min_depth_1_dir_paths,
+                             all_dir_paths(self.filtered_walk(min_depth=1)))
+        self.assertPathsEqual(depth_0_all_dir_paths,
+                              all_dir_paths(self.filtered_walk(depth=0)))
+        walk_iter = self.filtered_walk(included_files=['file*'],
+                                   excluded_files=['*2*'],
+                                   included_dirs=['sub*'],
+                                   excluded_dirs=['*2'])
+        self.assertPathsEqual(filtered_dir_paths, all_dir_paths(walk_iter))
 
     def test_file_paths(self):
         self.assertPathsEqual(expected_file_paths, file_paths(self.filtered_walk()))
