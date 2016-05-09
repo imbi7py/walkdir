@@ -190,7 +190,7 @@ def min_depth(walk_iter, depth):
     directory hierarchy.
     """
     if depth < 1:
-        msg = "Minimium depth less than 1 ({0!r} provided)"
+        msg = "Minimum depth less than 1 ({0!r} provided)"
         raise ValueError(msg.format(depth))
     sep=os.sep
     for dir_entry in walk_iter:

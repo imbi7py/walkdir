@@ -384,7 +384,7 @@ class NoFilesystemTestCase(_BaseWalkTestCase):
         self.assertWalkEqual(min_depth_2_tree, min_depth(self.walk(), 2))
         with self.assertRaises(ValueError) as cm:
             next(min_depth(self.walk(), -1))
-        self.assertIn("Minimium depth less than 1", str(cm.exception))
+        self.assertIn("Minimum depth less than 1", str(cm.exception))
 
     def test_include_dirs(self):
         self.assertWalkEqual(depth_0_tree, include_dirs(self.walk()))
