@@ -1,17 +1,12 @@
-syntax: glob
-*.swp
-*.kate-swp
-*.o
-*.pyc
-*.pyo
-*.pyd
-*.cover
-*~
-__pycache__
-.coverage
-coverage/
-htmlcov/
-_build/
+build/
 dist/
+docs/_build/
+pip.egg-info/
 MANIFEST
-.tox/
+.tox
+*.egg
+*.egg-info
+*.py[cod]
+*~
+.coverage
+coverage.xml
