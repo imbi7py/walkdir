@@ -61,7 +61,7 @@ Release History
 * The correct error message is now emitted when an invalid minimum depth is
   passed to ``min_depth`` on Python 2.6 (fix contributed by Aviv Palivoda)
 
-* development has migrated from GitHub to BitBucket
+* development has migrated from BitBucket to GitHub
 
 0.3 (2012-01-31)
 ~~~~~~~~~~~~~~~~~~
