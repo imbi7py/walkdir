@@ -1,8 +1,13 @@
 Release History
 ---------------
 
-0.4 (not yet released)
-~~~~~~~~~~~~~~~~~~~~~~
+0.4.1 (2016-05-10)
+~~~~~~~~~~~~~~~~~~
+
+* Include release date in release history
+
+0.4 (2016-05-10)
+~~~~~~~~~~~~~~~~
 
 * *SEMANTIC CHANGE*: to implement some of the fixes noted below, the
   ``all_paths`` iterator has been updated to emit paths in the following
