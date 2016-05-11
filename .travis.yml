@@ -10,7 +10,6 @@ env:
     matrix:
         - TESTENV=py26
         - TESTENV=py27
-        - TESTENV=py31
         - TESTENV=py33
         - TESTENV=py34
         - TESTENV=py35
