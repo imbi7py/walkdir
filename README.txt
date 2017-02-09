@@ -12,3 +12,5 @@ It offers tools such as:
 - depth limiting for directory recursion
 - flattening of output into simple sequences of path names
 - detection of symlink loops when following symlinks
+
+Full documenation avaliable at http://walkdir.readthedocs.io
