@@ -1,3 +1,9 @@
+Note: I'm currently neither using nor actively working on `walkdir`.
+If you're a current user that's interested in taking over maintenance
+on the project, please file an issue at
+https://github.com/ncoghlan/admin-meta/issues
+
+
 Overview
 ========
 
