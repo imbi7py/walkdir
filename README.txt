@@ -1,9 +1,3 @@
-Note: I'm currently neither using nor actively working on `walkdir`.
-If you're a current user that's interested in taking over maintenance
-on the project, please file an issue at
-https://github.com/ncoghlan/admin-meta/issues
-
-
 Overview
 ========
 
@@ -20,3 +14,10 @@ It offers tools such as:
 - detection of symlink loops when following symlinks
 
 Full documenation avaliable at http://walkdir.readthedocs.io
+
+
+Maintainer History
+------------------
+
+* Maintained by @palaviv since June 2018
+* Originally created by @ncoghlan in November 2011
