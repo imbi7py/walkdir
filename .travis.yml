@@ -4,7 +4,7 @@ cache:
     - $HOME/.cache/pip
 language: python
 python:
-  - "3.5"
+  - "3.6"
 
 env:
     matrix:
@@ -13,6 +13,7 @@ env:
         - TESTENV=py33
         - TESTENV=py34
         - TESTENV=py35
+        - TESTENV=py36
         - TESTENV=pypy
         - TESTENV=pypy3
 
