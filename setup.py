@@ -7,7 +7,7 @@ setup(
     py_modules=['walkdir'],
     license='Simplified BSD License',
     description='Tools to manipulate and filter os.walk() style iteration',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
     author='Nick Coghlan',
     author_email='ncoghlan@gmail.com',
     maintainer='Aviv Palivoda',
