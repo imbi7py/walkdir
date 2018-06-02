@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ncoghlan/walkdir.svg?branch=master)](https://travis-ci.org/ncoghlan/walkdir)
+[![Build Status](https://travis-ci.org/ncoghlan/walkdir.svg?branch=master)](https://travis-ci.org/ncoghlan/walkdir) [![codecov](https://codecov.io/gh/ncoghlan/walkdir/branch/master/graph/badge.svg)](https://codecov.io/gh/ncoghlan/walkdir)
 
 Overview
 ========
