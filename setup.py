@@ -10,6 +10,8 @@ setup(
     long_description=open('README.txt').read(),
     author='Nick Coghlan',
     author_email='ncoghlan@gmail.com',
+    maintainer='Aviv Palivoda',
+    maintainer_email='palaviv@gmail.com',
     url='http://walkdir.readthedocs.org',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
