@@ -21,3 +21,6 @@ install:
   - pip install tox
 
 script: tox -e $TESTENV
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
