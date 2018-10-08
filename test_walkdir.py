@@ -59,6 +59,7 @@ def named_walk():
     for dir_entry in fake_walk():
         yield WalkedDir(*dir_entry)
 
+
 expected_tree = [
     ('root', ['subdir1', 'subdir2', 'other'], ['file1.txt', 'file2.txt', 'other.txt']),
     ('root/subdir1', ['subdir1', 'subdir2', 'other'], ['file1.txt', 'file2.txt', 'other.txt']),
@@ -105,58 +106,58 @@ dir_filtered_tree = [
 ]
 
 expected_paths = [
-'root',
-'root/file1.txt',
-'root/file2.txt',
-'root/other.txt',
-'root/subdir1',
-'root/subdir2',
-'root/other',
-'root/subdir1/file1.txt',
-'root/subdir1/file2.txt',
-'root/subdir1/other.txt',
-'root/subdir1/subdir1',
-'root/subdir1/subdir2',
-'root/subdir1/other',
-'root/subdir1/subdir1/file1.txt',
-'root/subdir1/subdir1/file2.txt',
-'root/subdir1/subdir1/other.txt',
-'root/subdir1/subdir2/file1.txt',
-'root/subdir1/subdir2/file2.txt',
-'root/subdir1/subdir2/other.txt',
-'root/subdir1/other/file1.txt',
-'root/subdir1/other/file2.txt',
-'root/subdir1/other/other.txt',
-'root/subdir2/file1.txt',
-'root/subdir2/file2.txt',
-'root/subdir2/other.txt',
-'root/subdir2/subdir1',
-'root/subdir2/subdir2',
-'root/subdir2/other',
-'root/subdir2/subdir1/file1.txt',
-'root/subdir2/subdir1/file2.txt',
-'root/subdir2/subdir1/other.txt',
-'root/subdir2/subdir2/file1.txt',
-'root/subdir2/subdir2/file2.txt',
-'root/subdir2/subdir2/other.txt',
-'root/subdir2/other/file1.txt',
-'root/subdir2/other/file2.txt',
-'root/subdir2/other/other.txt',
-'root/other/file1.txt',
-'root/other/file2.txt',
-'root/other/other.txt',
-'root/other/subdir1',
-'root/other/subdir2',
-'root/other/other',
-'root/other/subdir1/file1.txt',
-'root/other/subdir1/file2.txt',
-'root/other/subdir1/other.txt',
-'root/other/subdir2/file1.txt',
-'root/other/subdir2/file2.txt',
-'root/other/subdir2/other.txt',
-'root/other/other/file1.txt',
-'root/other/other/file2.txt',
-'root/other/other/other.txt'
+    'root',
+    'root/file1.txt',
+    'root/file2.txt',
+    'root/other.txt',
+    'root/subdir1',
+    'root/subdir2',
+    'root/other',
+    'root/subdir1/file1.txt',
+    'root/subdir1/file2.txt',
+    'root/subdir1/other.txt',
+    'root/subdir1/subdir1',
+    'root/subdir1/subdir2',
+    'root/subdir1/other',
+    'root/subdir1/subdir1/file1.txt',
+    'root/subdir1/subdir1/file2.txt',
+    'root/subdir1/subdir1/other.txt',
+    'root/subdir1/subdir2/file1.txt',
+    'root/subdir1/subdir2/file2.txt',
+    'root/subdir1/subdir2/other.txt',
+    'root/subdir1/other/file1.txt',
+    'root/subdir1/other/file2.txt',
+    'root/subdir1/other/other.txt',
+    'root/subdir2/file1.txt',
+    'root/subdir2/file2.txt',
+    'root/subdir2/other.txt',
+    'root/subdir2/subdir1',
+    'root/subdir2/subdir2',
+    'root/subdir2/other',
+    'root/subdir2/subdir1/file1.txt',
+    'root/subdir2/subdir1/file2.txt',
+    'root/subdir2/subdir1/other.txt',
+    'root/subdir2/subdir2/file1.txt',
+    'root/subdir2/subdir2/file2.txt',
+    'root/subdir2/subdir2/other.txt',
+    'root/subdir2/other/file1.txt',
+    'root/subdir2/other/file2.txt',
+    'root/subdir2/other/other.txt',
+    'root/other/file1.txt',
+    'root/other/file2.txt',
+    'root/other/other.txt',
+    'root/other/subdir1',
+    'root/other/subdir2',
+    'root/other/other',
+    'root/other/subdir1/file1.txt',
+    'root/other/subdir1/file2.txt',
+    'root/other/subdir1/other.txt',
+    'root/other/subdir2/file1.txt',
+    'root/other/subdir2/file2.txt',
+    'root/other/subdir2/other.txt',
+    'root/other/other/file1.txt',
+    'root/other/other/file2.txt',
+    'root/other/other/other.txt'
 ]
 
 # Between them, file_paths and all_dir_paths capture the all_paths output
@@ -166,64 +167,64 @@ expected_all_dir_paths = [d for d in expected_paths if not d.endswith('.txt')]
 expected_dir_paths = [visited[0] for visited in expected_tree]
 
 depth_0_paths = [
-'root',
-'root/file1.txt',
-'root/file2.txt',
-'root/other.txt',
-'root/subdir1',
-'root/subdir2',
-'root/other',
+    'root',
+    'root/file1.txt',
+    'root/file2.txt',
+    'root/other.txt',
+    'root/subdir1',
+    'root/subdir2',
+    'root/other',
 ]
 
 min_depth_1_paths = [
-'root/subdir1',
-'root/subdir1/file1.txt',
-'root/subdir1/file2.txt',
-'root/subdir1/other.txt',
-'root/subdir1/subdir1',
-'root/subdir1/subdir2',
-'root/subdir1/other',
-'root/subdir1/subdir1/file1.txt',
-'root/subdir1/subdir1/file2.txt',
-'root/subdir1/subdir1/other.txt',
-'root/subdir1/subdir2/file1.txt',
-'root/subdir1/subdir2/file2.txt',
-'root/subdir1/subdir2/other.txt',
-'root/subdir1/other/file1.txt',
-'root/subdir1/other/file2.txt',
-'root/subdir1/other/other.txt',
-'root/subdir2',
-'root/subdir2/file1.txt',
-'root/subdir2/file2.txt',
-'root/subdir2/other.txt',
-'root/subdir2/subdir1',
-'root/subdir2/subdir2',
-'root/subdir2/other',
-'root/subdir2/subdir1/file1.txt',
-'root/subdir2/subdir1/file2.txt',
-'root/subdir2/subdir1/other.txt',
-'root/subdir2/subdir2/file1.txt',
-'root/subdir2/subdir2/file2.txt',
-'root/subdir2/subdir2/other.txt',
-'root/subdir2/other/file1.txt',
-'root/subdir2/other/file2.txt',
-'root/subdir2/other/other.txt',
-'root/other',
-'root/other/file1.txt',
-'root/other/file2.txt',
-'root/other/other.txt',
-'root/other/subdir1',
-'root/other/subdir2',
-'root/other/other',
-'root/other/subdir1/file1.txt',
-'root/other/subdir1/file2.txt',
-'root/other/subdir1/other.txt',
-'root/other/subdir2/file1.txt',
-'root/other/subdir2/file2.txt',
-'root/other/subdir2/other.txt',
-'root/other/other/file1.txt',
-'root/other/other/file2.txt',
-'root/other/other/other.txt'
+    'root/subdir1',
+    'root/subdir1/file1.txt',
+    'root/subdir1/file2.txt',
+    'root/subdir1/other.txt',
+    'root/subdir1/subdir1',
+    'root/subdir1/subdir2',
+    'root/subdir1/other',
+    'root/subdir1/subdir1/file1.txt',
+    'root/subdir1/subdir1/file2.txt',
+    'root/subdir1/subdir1/other.txt',
+    'root/subdir1/subdir2/file1.txt',
+    'root/subdir1/subdir2/file2.txt',
+    'root/subdir1/subdir2/other.txt',
+    'root/subdir1/other/file1.txt',
+    'root/subdir1/other/file2.txt',
+    'root/subdir1/other/other.txt',
+    'root/subdir2',
+    'root/subdir2/file1.txt',
+    'root/subdir2/file2.txt',
+    'root/subdir2/other.txt',
+    'root/subdir2/subdir1',
+    'root/subdir2/subdir2',
+    'root/subdir2/other',
+    'root/subdir2/subdir1/file1.txt',
+    'root/subdir2/subdir1/file2.txt',
+    'root/subdir2/subdir1/other.txt',
+    'root/subdir2/subdir2/file1.txt',
+    'root/subdir2/subdir2/file2.txt',
+    'root/subdir2/subdir2/other.txt',
+    'root/subdir2/other/file1.txt',
+    'root/subdir2/other/file2.txt',
+    'root/subdir2/other/other.txt',
+    'root/other',
+    'root/other/file1.txt',
+    'root/other/file2.txt',
+    'root/other/other.txt',
+    'root/other/subdir1',
+    'root/other/subdir2',
+    'root/other/other',
+    'root/other/subdir1/file1.txt',
+    'root/other/subdir1/file2.txt',
+    'root/other/subdir1/other.txt',
+    'root/other/subdir2/file1.txt',
+    'root/other/subdir2/file2.txt',
+    'root/other/subdir2/other.txt',
+    'root/other/other/file1.txt',
+    'root/other/other/file2.txt',
+    'root/other/other/other.txt'
 ]
 
 min_depth_1_dir_paths = [d for d in min_depth_1_paths if not d.endswith('.txt')]
@@ -233,12 +234,12 @@ depth_0_dir_paths = [d for d in depth_0_paths if '/' not in d]
 depth_0_file_paths = [f for f in depth_0_paths if f.endswith('.txt')]
 
 filtered_paths = [
-'root',
-'root/file1.txt',
-'root/subdir1',
-'root/subdir1/file1.txt',
-'root/subdir1/subdir1',
-'root/subdir1/subdir1/file1.txt',
+    'root',
+    'root/file1.txt',
+    'root/subdir1',
+    'root/subdir1/file1.txt',
+    'root/subdir1/subdir1',
+    'root/subdir1/subdir1/file1.txt',
 ]
 
 filtered_dir_paths = [d for d in filtered_paths if not d.endswith('.txt')]
@@ -477,7 +478,7 @@ class FilteredWalkTestCase(_BaseWalkTestCase):
 
     def test_filter_dirs(self):
         walk_iter = self.filtered_walk(included_dirs=['sub*'],
-                                   excluded_dirs=['*2'])
+                                       excluded_dirs=['*2'])
         self.assertWalkEqual(dir_filtered_tree, walk_iter)
 
     def test_include_files(self):
@@ -502,7 +503,7 @@ class FilteredWalkTestCase(_BaseWalkTestCase):
 
     def test_filter_files(self):
         walk_iter = self.filtered_walk(included_files=['file*'],
-                                   excluded_files=['*2*'])
+                                       excluded_files=['*2*'])
         for dir_entry in walk_iter:
             self.assertFilesEqual(dir_entry, ['file1.txt'])
 
@@ -524,48 +525,48 @@ class PathIterationTestCase(_BaseWalkTestCase):
     def test_all_paths(self):
         self.assertPathsEqual(expected_paths, all_paths(self.filtered_walk()))
         self.assertPathsEqual(min_depth_1_paths,
-                            all_paths(self.filtered_walk(min_depth=1)))
+                              all_paths(self.filtered_walk(min_depth=1)))
         self.assertPathsEqual(depth_0_paths, all_paths(self.filtered_walk(depth=0)))
         walk_iter = self.filtered_walk(included_files=['file*'],
-                                   excluded_files=['*2*'],
-                                   included_dirs=['sub*'],
-                                   excluded_dirs=['*2'],)
+                                       excluded_files=['*2*'],
+                                       included_dirs=['sub*'],
+                                       excluded_dirs=['*2'], )
         self.assertPathsEqual(filtered_paths, all_paths(walk_iter))
         self.assertPathsEqual([], all_paths(iter(())))
 
     def test_dir_paths(self):
         self.assertPathsEqual(expected_dir_paths, dir_paths(self.filtered_walk()))
         self.assertPathsEqual(min_depth_1_dir_paths,
-                             dir_paths(self.filtered_walk(min_depth=1)))
+                              dir_paths(self.filtered_walk(min_depth=1)))
         self.assertPathsEqual(depth_0_dir_paths, dir_paths(self.filtered_walk(depth=0)))
         walk_iter = self.filtered_walk(included_files=['file*'],
-                                   excluded_files=['*2*'],
-                                   included_dirs=['sub*'],
-                                   excluded_dirs=['*2'])
+                                       excluded_files=['*2*'],
+                                       included_dirs=['sub*'],
+                                       excluded_dirs=['*2'])
         self.assertPathsEqual(filtered_dir_paths, dir_paths(walk_iter))
 
     def test_all_dir_paths(self):
         self.assertPathsEqual(expected_all_dir_paths,
                               all_dir_paths(self.filtered_walk()))
         self.assertPathsEqual(min_depth_1_dir_paths,
-                             all_dir_paths(self.filtered_walk(min_depth=1)))
+                              all_dir_paths(self.filtered_walk(min_depth=1)))
         self.assertPathsEqual(depth_0_all_dir_paths,
                               all_dir_paths(self.filtered_walk(depth=0)))
         walk_iter = self.filtered_walk(included_files=['file*'],
-                                   excluded_files=['*2*'],
-                                   included_dirs=['sub*'],
-                                   excluded_dirs=['*2'])
+                                       excluded_files=['*2*'],
+                                       included_dirs=['sub*'],
+                                       excluded_dirs=['*2'])
         self.assertPathsEqual(filtered_dir_paths, all_dir_paths(walk_iter))
 
     def test_file_paths(self):
         self.assertPathsEqual(expected_file_paths, file_paths(self.filtered_walk()))
         self.assertPathsEqual(expected_file_paths[len(depth_0_file_paths):],
-                             file_paths(self.filtered_walk(min_depth=1)))
+                              file_paths(self.filtered_walk(min_depth=1)))
         self.assertPathsEqual(depth_0_file_paths, file_paths(self.filtered_walk(depth=0)))
         walk_iter = self.filtered_walk(included_files=['file*'],
-                                   excluded_files=['*2*'],
-                                   included_dirs=['sub*'],
-                                   excluded_dirs=['*2'])
+                                       excluded_files=['*2*'],
+                                       included_dirs=['sub*'],
+                                       excluded_dirs=['*2'])
         self.assertPathsEqual(filtered_file_paths, file_paths(walk_iter))
 
 
@@ -640,8 +641,6 @@ class SymlinkLoopTestCase(_BaseFileSystemWalkTestCase):
         os.symlink(".", os.path.join(self.test_folder, "root", "link"))
         self.assertWalkEqual(new_expected_tree,
                              handle_symlink_loops(self.walk(followlinks=True)))
-
-
 
 
 if __name__ == "__main__":
