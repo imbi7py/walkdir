@@ -11,7 +11,9 @@ try:
 except NameError:
     _str_base = str
 
+
 # Filtering for inclusion
+
 
 def _make_include_filter(patterns):
     """Create a filtering function from a collection of inclusion patterns"""
@@ -19,22 +21,28 @@ def _make_include_filter(patterns):
     if not patterns:
         def _filter(names):
             return names[0:0]
+
         return _filter
     # Use fnmatch.filter if it's applicable
     if len(patterns) == 1:
         def _filter(names):
             return fnmatch.filter(names, patterns[0])
+
         return _filter
+
     # Handle the general case for inclusion
     def _should_include(name):
         return any(fnmatch.fnmatch(name, pattern)
-                        for pattern in patterns)
+                   for pattern in patterns)
+
     def _filter(names):
         for name in names:
             if _should_include(name):
                 yield name
+
     return _filter
-    
+
+
 def include_dirs(walk_iter, *include_filters):
     """Use :func:`fnmatch.fnmatch` patterns to select directories of interest
     
@@ -49,6 +57,7 @@ def include_dirs(walk_iter, *include_filters):
         subdirs = dir_entry[1]
         subdirs[:] = filter_subdirs(subdirs)
         yield dir_entry
+
 
 def include_files(walk_iter, *include_filters):
     """Use :func:`fnmatch.fnmatch` patterns to select files of interest
@@ -65,6 +74,7 @@ def include_files(walk_iter, *include_filters):
         files[:] = filter_files(files)
         yield dir_entry
 
+
 # Filtering for exclusion
 
 def _make_exclude_filter(patterns):
@@ -73,16 +83,21 @@ def _make_exclude_filter(patterns):
     if not patterns:
         def _filter(names):
             return names
+
         return _filter
+
     # Handle the general case for exclusion
     def _should_exclude(name):
         return any(fnmatch.fnmatch(name, pattern)
-                        for pattern in patterns)
+                   for pattern in patterns)
+
     def _filter(names):
         for name in names:
             if not _should_exclude(name):
                 yield name
+
     return _filter
+
 
 def exclude_dirs(walk_iter, *exclude_filters):
     """Use :func:`fnmatch.fnmatch` patterns to skip irrelevant directories
@@ -98,6 +113,7 @@ def exclude_dirs(walk_iter, *exclude_filters):
         subdirs = dir_entry[1]
         subdirs[:] = filter_subdirs(subdirs)
         yield dir_entry
+
 
 def exclude_files(walk_iter, *exclude_filters):
     """Use :func:`fnmatch.fnmatch` patterns to skip irrelevant files
@@ -134,7 +150,7 @@ def limit_depth(walk_iter, depth):
     if depth < 0:
         msg = "Depth limit less than 0 ({0!r} provided)"
         raise ValueError(msg.format(depth))
-    sep=os.sep
+    sep = os.sep
     for dir_entry in walk_iter:
         yield dir_entry
         top = dir_entry[0]
@@ -150,6 +166,7 @@ def limit_depth(walk_iter, depth):
         yield dir_entry
         if current_depth >= depth:
             subdirs[:] = []
+
 
 def min_depth(walk_iter, depth):
     """Only process subdirectories beyond a minimum depth
@@ -192,7 +209,7 @@ def min_depth(walk_iter, depth):
     if depth < 1:
         msg = "Minimum depth less than 1 ({0!r} provided)"
         raise ValueError(msg.format(depth))
-    sep=os.sep
+    sep = os.sep
     for dir_entry in walk_iter:
         initial_depth = dir_entry[0].count(sep)
         break
@@ -202,8 +219,8 @@ def min_depth(walk_iter, depth):
         if current_depth >= depth:
             yield dir_entry
 
-# Symlink loop handling
 
+# Symlink loop handling
 def handle_symlink_loops(walk_iter, onloop=None):
     """Handle symlink loops when following symlinks during a walk
     
@@ -224,7 +241,7 @@ def handle_symlink_loops(walk_iter, onloop=None):
             msg = "Symlink {0!r} refers to a parent directory, skipping\n"
             sys.stderr.write(msg.format(dirpath))
             sys.stderr.flush()
-    sep=os.sep
+    sep = os.sep
     for dir_entry in walk_iter:
         yield dir_entry
         top = dir_entry[0]
@@ -250,11 +267,12 @@ def handle_symlink_loops(walk_iter, onloop=None):
                     continue
         yield dir_entry
 
+
 # Convenience function that puts together an iterator pipeline
 
 def filtered_walk(top, included_files=None, included_dirs=None,
-                       excluded_files=None, excluded_dirs=None,
-                       depth=None, followlinks=False, min_depth=None):
+                  excluded_files=None, excluded_dirs=None,
+                  depth=None, followlinks=False, min_depth=None):
     """This is a wrapper around ``os.walk()`` and other filesystem traversal
        iterators, with these additional features:
 
@@ -325,6 +343,7 @@ def dir_paths(walk_iter):
     for dir_entry in walk_iter:
         yield dir_entry[0]
 
+
 def all_dir_paths(walk_iter):
     """Iterate over all directories reachable through the underlying walk
 
@@ -359,6 +378,7 @@ def all_dir_paths(walk_iter):
             yield os.path.join(dirpath, subdir)
         dir_entry = next(walk_iter, None)
 
+
 def file_paths(walk_iter):
     """Iterate over the files in directories visited by the underlying walk
 
@@ -368,6 +388,7 @@ def file_paths(walk_iter):
     for dir_entry in walk_iter:
         for fname in dir_entry[2]:
             yield os.path.join(dir_entry[0], fname)
+
 
 def all_paths(walk_iter):
     """Iterate over all paths reachable through the underlying walk
@@ -398,6 +419,7 @@ def all_paths(walk_iter):
         for subdir in dir_entry[1]:
             yield os.path.join(dirpath, subdir)
         dir_entry = next(walk_iter, None)
+
 
 # Legacy API
 iter_dir_paths = dir_paths
