@@ -531,6 +531,7 @@ class PathIterationTestCase(_BaseWalkTestCase):
                                    included_dirs=['sub*'],
                                    excluded_dirs=['*2'],)
         self.assertPathsEqual(filtered_paths, all_paths(walk_iter))
+        self.assertPathsEqual([], all_paths(iter(())))
 
     def test_dir_paths(self):
         self.assertPathsEqual(expected_dir_paths, dir_paths(self.filtered_walk()))
